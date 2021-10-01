@@ -1,0 +1,4 @@
+repository "Develop@ssl://f4te_group@sh01-plasticscm.unity.cn:8787"
+  path "/"
+    smartbranch "/main/792174301" 
+     
