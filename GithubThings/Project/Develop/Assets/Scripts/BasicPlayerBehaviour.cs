@@ -19,7 +19,8 @@ public class BasicPlayerBehaviour : MonoBehaviour
     public float playerSpeed;                   // 初始移动速度
     public float playerJumpForce;               // 初始跳跃力度
     public float playerJumpCount;              // 玩家已跳跃次数
-    public Vector2 playerPostition;
+    private static Vector2 playerPostition;     // 玩家位置
+    private static Vector2 mousePosition;       // 鼠标位置
     // -----Input Data-----
     private float horizontalInputValue;         // 水平轴输入
     private float verticalInputValue;           // 垂直轴输入
@@ -70,6 +71,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
         horizontalInputValue = Input.GetAxis("Horizontal");
         verticalInputValue = Input.GetAxis("Vertical");
         jumpInputState = Input.GetKeyDown(KeyCode.Space);
+        mousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
     }
 
     void UpdateRender()                         // 更新状态和渲染
@@ -144,5 +146,15 @@ public class BasicPlayerBehaviour : MonoBehaviour
             SetIsGround(false);
             playerAnimator.SetBool("isGround", false);
         }
+    }
+
+    public static Vector2 GetPlayerPosition()
+    {
+        return playerPostition;
+    }
+
+    public static Vector2 GetMousePosition()
+    {
+        return mousePosition;
     }
 }

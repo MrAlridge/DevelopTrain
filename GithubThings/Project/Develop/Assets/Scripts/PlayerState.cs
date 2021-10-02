@@ -8,6 +8,7 @@ using UnityEngine;
 public class PlayerState : MonoBehaviour
 {
     public static int coinNum;                             // 收集到的硬币数
+    
     void Start()
     {
         coinNum = 0;
