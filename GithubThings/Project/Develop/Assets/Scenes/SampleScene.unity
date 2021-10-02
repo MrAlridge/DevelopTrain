@@ -358,10 +358,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerCollider: {fileID: 733205194}
   playerRigidbody: {fileID: 733205193}
-  playerAnimator: {fileID: 0}
   playerRender: {fileID: 733205195}
+  isGround: 0
   playerSpeed: 0.5
   playerJumpForce: 100
+  playerJumpCount: 0
+  ground:
+    serializedVersion: 2
+    m_Bits: 256
 --- !u!1 &997398624
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,7 +457,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1437209488}
   - component: {fileID: 1437209489}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GrassCliffMid
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +536,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1758326343}
   - component: {fileID: 1758326344}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GrassCliffLeft
   m_TagString: Untagged
   m_Icon: {fileID: 0}
