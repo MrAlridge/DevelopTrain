@@ -26,7 +26,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
     private bool jumpInputState;                // 跳跃键输入
     // -----Other Thing-----
     // Ray2D groundDetectRay = new Ray2D(new Vector2(0,0), new Vector2(0, -1));                      // 触地检测射线
-    ContactFilter2D cFilter = new ContactFilter2D();
+    public LayerMask ground;
     RaycastHit2D[] castResults;           // 返回的结果
     public float playerSpeedLimit;              // 速度上限
 
@@ -109,25 +109,27 @@ public class BasicPlayerBehaviour : MonoBehaviour
             }
         }
     }
-
-    /*  这个触地检测方法使用collider接触的东西来判断是否触地，会有NullReferenceError，暂时弃用
-        void GroundScan()                           // 触地检测
+    void GroundScan()                           // 触地检测
+    {
+        bool groundDetect = false;
+        //Collider2D[] contacts = new Collider2D[2];
+        //playerCollider.GetContacts(contacts);
+        //foreach (Collider2D item in contacts)
+        //{
+        //    if (item.gameObject.CompareTag("Tile"))
+        //    {
+        //        groundDetect = true;
+        //    }
+        //}
+        if (playerCollider.IsTouchingLayers(ground))
         {
-            bool groundDetect = false;
-            Collider2D[] contacts = new Collider2D[2];
-            playerCollider.GetContacts(contacts);
-            foreach (Collider2D item in contacts)
-            {
-                if (item.gameObject.tag == "Tile")
-                {
-                    groundDetect = true;
-                }
-            }
-            if(groundDetect)
-            {
-                SetIsGround(true);
-                playerJumpCount = 0;
-            }
+            groundDetect = true;
         }
-    */
+
+        if (groundDetect)
+        {
+            SetIsGround(true);
+            playerJumpCount = 0;
+        }
+    }
 }
