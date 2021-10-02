@@ -38,7 +38,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
     void Update()
     {
         playerPostition = new Vector2(this.transform.position.x, this.transform.position.y);
-        //GroundScan();
+        GroundScan();
         SpeedLimit();
         UpdateRender();
         GetInput();
@@ -72,21 +72,38 @@ public class BasicPlayerBehaviour : MonoBehaviour
         jumpInputState = Input.GetKeyDown(KeyCode.Space);
     }
 
-    void UpdateRender()
+    void UpdateRender()                         // 更新状态和渲染
     {
-        if(playerRigidbody.velocity.x > 0)
+        if(Mathf.Abs(playerRigidbody.velocity.x) > 2)
+        {
+            playerAnimator.SetBool("isWalking", true);
+        }else{
+            playerAnimator.SetBool("isWalking", false);
+        }
+        if(playerRigidbody.velocity.x > 0.25)
         {
             if(playerRender.flipX != false)
             {
                 playerRender.flipX = false;
             }
         }else{
-            if(playerRigidbody.velocity.x < 0)
+            if(playerRigidbody.velocity.x < 0.25)
             {
                 if(playerRender.flipX != true)
                 {
                     playerRender.flipX = true;
                 }
+            }
+        }
+        if(playerRigidbody.velocity.y > 0)
+        {
+            playerAnimator.SetInteger("jumpDir", 1);
+        }else{
+            if(playerRigidbody.velocity.y < -0)
+            {
+                playerAnimator.SetInteger("jumpDir", -1);
+            }else{
+                playerAnimator.SetInteger("jumpDir", 0);
             }
         }
     }
@@ -112,24 +129,20 @@ public class BasicPlayerBehaviour : MonoBehaviour
     void GroundScan()                           // 触地检测
     {
         bool groundDetect = false;
-        //Collider2D[] contacts = new Collider2D[2];
-        //playerCollider.GetContacts(contacts);
-        //foreach (Collider2D item in contacts)
-        //{
-        //    if (item.gameObject.CompareTag("Tile"))
-        //    {
-        //        groundDetect = true;
-        //    }
-        //}
         if (playerCollider.IsTouchingLayers(ground))
         {
             groundDetect = true;
+            //Debug.Log("Touch!");
         }
 
         if (groundDetect)
         {
             SetIsGround(true);
             playerJumpCount = 0;
+            playerAnimator.SetBool("isGround", true);
+        }else{
+            SetIsGround(false);
+            playerAnimator.SetBool("isGround", false);
         }
     }
 }
