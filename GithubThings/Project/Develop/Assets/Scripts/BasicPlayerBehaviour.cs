@@ -1,4 +1,8 @@
-﻿using System.Collections;
+﻿/*
+* 这个是控制玩家行为的脚本，基本包括了玩家本身的各种动作
+*/
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -15,11 +19,16 @@ public class BasicPlayerBehaviour : MonoBehaviour
     public float playerSpeed;                   // 初始移动速度
     public float playerJumpForce;               // 初始跳跃力度
     public float playerJumpCount;              // 玩家已跳跃次数
+    public Vector2 playerPostition;
     // -----Input Data-----
     private float horizontalInputValue;         // 水平轴输入
     private float verticalInputValue;           // 垂直轴输入
     private bool jumpInputState;                // 跳跃键输入
     // -----Other Thing-----
+    // Ray2D groundDetectRay = new Ray2D(new Vector2(0,0), new Vector2(0, -1));                      // 触地检测射线
+    ContactFilter2D cFilter = new ContactFilter2D();
+    RaycastHit2D[] castResults;           // 返回的结果
+    public float playerSpeedLimit;              // 速度上限
 
     void Start()
     {
@@ -28,7 +37,9 @@ public class BasicPlayerBehaviour : MonoBehaviour
 
     void Update()
     {
-        GroundScan();
+        playerPostition = new Vector2(this.transform.position.x, this.transform.position.y);
+        //GroundScan();
+        SpeedLimit();
         UpdateRender();
         GetInput();
         if(isMoveable)                          // 移动操作逻辑
@@ -86,22 +97,37 @@ public class BasicPlayerBehaviour : MonoBehaviour
             isGround = setBool;
     }
 
-    void GroundScan()                           // 触地检测
+    void SpeedLimit()
     {
-        bool groundDetect = false;
-        Collider2D[] contacts = new Collider2D[2];
-        playerCollider.GetContacts(contacts);
-        foreach (Collider2D item in contacts)
+        if (Mathf.Abs(playerRigidbody.velocity.x) > playerSpeedLimit)
         {
-            if (item.gameObject.tag == "Tile")
+            if(playerRigidbody.velocity.x > 0)
             {
-                groundDetect = true;
+                playerRigidbody.velocity = new Vector2(playerSpeedLimit, playerRigidbody.velocity.y);
+            }else{
+                playerRigidbody.velocity = new Vector2(-playerSpeedLimit, playerRigidbody.velocity.y);
             }
         }
-        if(groundDetect)
-        {
-            SetIsGround(true);
-            playerJumpCount = 0;
-        }
     }
+
+    /*  这个触地检测方法使用collider接触的东西来判断是否触地，会有NullReferenceError，暂时弃用
+        void GroundScan()                           // 触地检测
+        {
+            bool groundDetect = false;
+            Collider2D[] contacts = new Collider2D[2];
+            playerCollider.GetContacts(contacts);
+            foreach (Collider2D item in contacts)
+            {
+                if (item.gameObject.tag == "Tile")
+                {
+                    groundDetect = true;
+                }
+            }
+            if(groundDetect)
+            {
+                SetIsGround(true);
+                playerJumpCount = 0;
+            }
+        }
+    */
 }
