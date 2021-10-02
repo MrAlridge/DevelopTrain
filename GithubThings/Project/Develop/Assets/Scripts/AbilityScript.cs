@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 public class AbilityScript : MonoBehaviour
 {
-    private Graple grapleAbility;
+    public Graple grapleAbility;
     public int abilityIndex;
     public GameObject playerReferObject;
     public float grapleDistanceValue;
@@ -36,10 +36,19 @@ public class AbilityScript : MonoBehaviour
                 //Debug.Log("Parameters:" + thisInstance.grapleObject.name + ',' + thisInstance.playerObject.name + ',' + thisInstance.grapleForce.ToString());
                 currentGraple = Instantiate(grapleObject, playerObject.transform.position, CursorHelper.GetRotation());
                 // currentGraple.transform.LookAt(CursorHelper.GetVector3());
+                // 万恶之源应该就是这个施加力的语句了，这个GetVector2返回的向量绝壁有问题
                 currentGraple.GetComponent<Rigidbody2D>().AddForce(grapleForce * CursorHelper.GetVector2());    // 这个力度是不是有点大
-                Destroy(currentGraple, 5f);
+                Destroy(currentGraple, 4f);
                 grapleOut = true;
+            }else{
+                Debug.Log("NOT NULL!");
             }
+        }
+
+        public void ResetGraple()
+        {
+            grapleOut = false;
+            Debug.Log("Yes!");
         }
     }
 
@@ -75,5 +84,6 @@ public class AbilityScript : MonoBehaviour
                 }
             }
         }
+        // Debug.Log(grapleAbility.grapleOut.ToString());
     }
 }

@@ -22,7 +22,8 @@ public class CursorHelper : MonoBehaviour
     {
         mousePosition = Input.mousePosition;
         // 指向鼠标的向量
-        retVector2 = new Vector2((mousePosition.x - this.transform.position.x),(mousePosition.y - this.transform.position.y));
+        Vector3 tempVetcor = mousePosition - this.transform.position;
+        retVector2 = new Vector2(tempVetcor.x, tempVetcor.y);
         retVector3  = mousePosition;
         this.transform.LookAt(mousePosition);
         retRotation = new Quaternion(this.transform.rotation.x, 0f, this.transform.rotation.z, this.transform.rotation.w);
