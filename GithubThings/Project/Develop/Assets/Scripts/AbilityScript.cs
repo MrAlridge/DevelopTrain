@@ -69,6 +69,7 @@ public class AbilityScript : MonoBehaviour
 
     void Update()
     {
+        currentAbilityIndex = AbilityCursor.cursorEvent;
         if(Input.GetMouseButtonDown(0))
         {
             switch (currentAbilityIndex)

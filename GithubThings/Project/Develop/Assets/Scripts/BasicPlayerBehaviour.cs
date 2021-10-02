@@ -116,7 +116,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
             isGround = setBool;
     }
 
-    void SpeedLimit()
+    void SpeedLimit()                           // 限制玩家最大速度
     {
         if (Mathf.Abs(playerRigidbody.velocity.x) > playerSpeedLimit)
         {
@@ -148,6 +148,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
         }
     }
 
+    // -----封装方法-----
     public static Vector2 GetPlayerPosition()
     {
         return playerPostition;
