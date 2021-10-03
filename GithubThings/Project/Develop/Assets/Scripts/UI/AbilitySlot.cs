@@ -9,7 +9,7 @@ public class AbilitySlot : MonoBehaviour
 
     void Start()
     {
-        
+        playerState = GameObject.FindWithTag("Player").GetComponent<PlayerState>();
     }
 
     // Update is called once per frame

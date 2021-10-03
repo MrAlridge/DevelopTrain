@@ -134,7 +134,8 @@ MonoBehaviour:
   playerJoint: {fileID: 0}
   thisCollider: {fileID: 1287077298652916028}
   rigid: {fileID: 1287077298652916031}
-  abilitySystem: {fileID: 0}
+  abilitySystem: {fileID: 5147587756254932070, guid: 3bb9fe87a3520fa4b802c4d683169302,
+    type: 3}
   swingForce: 100
   isHit: 0
   flyingTime: 5

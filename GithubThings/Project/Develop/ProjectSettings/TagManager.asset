@@ -7,6 +7,8 @@ TagManager:
   - Tile
   - AbilitySystem
   - GraplePoint
+  - Spike
+  - SavePoint
   layers:
   - Default
   - TransparentFX
