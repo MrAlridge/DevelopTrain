@@ -29,17 +29,19 @@ public class AbilityScript : MonoBehaviour
         public int index = 1;
         public bool grapleOut = false;              // 抓钩是否飞出
         public GameObject currentGraple;            // 生成的抓钩
+        public GrapleHead grapleHeadScripts;        // 抓钩上的脚本
         public override void ActiveAbility()
         {
             // 抓钩发射
             if (!grapleOut)
             {
                 //Debug.Log("Parameters:" + thisInstance.grapleObject.name + ',' + thisInstance.playerObject.name + ',' + thisInstance.grapleForce.ToString());
-                currentGraple = Instantiate(grapleObject, playerObject.transform.position, new Quaternion(0f, 0f, 0f, 0f));
+                currentGraple = Instantiate(grapleObject, playerObject.transform.position, grapleObject.transform.rotation);
                 // currentGraple.transform.LookAt(CursorHelper.GetVector3());
                 // 万恶之源应该就是这个施加力的语句了，这个GetVector2返回的向量绝壁有问题
                 //currentGraple.GetComponent<Rigidbody2D>().AddForce(grapleForce * CursorHelper.GetVector2());    // 这个力度是不是有点大
-                currentGraple.GetComponent<GrapleHead>().Launch(grapleForce, new Vector2(Input.mousePosition.x, Input.mousePosition.y));
+                grapleHeadScripts = currentGraple.GetComponent<GrapleHead>(); 
+                grapleHeadScripts.Launch(grapleForce, new Vector2(Input.mousePosition.x, Input.mousePosition.y));
                 grapleOut = true;
             }else{
                 Debug.Log("NOT NULL!");
@@ -81,6 +83,21 @@ public class AbilityScript : MonoBehaviour
                 }
             }
         }
-        // Debug.Log(grapleAbility.grapleOut.ToString());
+        if(grapleAbility.grapleOut)
+        {
+            if(grapleAbility.grapleHeadScripts.isHit)
+            {
+                if(BasicPlayerBehaviour.horizontalInputValue != 0)
+                {
+                    grapleAbility.grapleHeadScripts.Swing(BasicPlayerBehaviour.horizontalInputValue);
+                }
+                if(BasicPlayerBehaviour.jumpInputState)
+                {
+                    Destroy(grapleAbility.currentGraple);
+                    // 跳跃动作
+                    playerObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(0, BasicPlayerBehaviour.GetPlayerJumpForce()));
+                }
+            }
+        }
     }
 }

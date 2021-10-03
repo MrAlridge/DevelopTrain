@@ -10,7 +10,7 @@ public class CursorHelper : MonoBehaviour
 {
     private Transform playerTransform;
     private Vector3 mousePosition;
-    private static Quaternion retRotation;
+    private static float retRotation;
     private static Vector2 retVector2;
     private static Vector3 retVector3;
     void Start()
@@ -21,16 +21,21 @@ public class CursorHelper : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mousePosition = Input.mousePosition;
+        
+        mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        mousePosition.z = 0;
         // 指向鼠标的向量
         Vector3 tempVetcor = mousePosition - this.transform.position;
         retVector2 = new Vector2(tempVetcor.x, tempVetcor.y);
         retVector3  = mousePosition;
-        this.transform.LookAt(mousePosition);
-        retRotation = new Quaternion(this.transform.rotation.x, 0f, this.transform.rotation.z, this.transform.rotation.w);
+        retRotation = Vector2.Angle(tempVetcor, Vector2.up);
+        if(mousePosition.x > this.transform.position.x)
+        {
+            retRotation = -retRotation;
+        }
     }
 
-    public static Quaternion GetRotation()
+    public static float GetRotation()
     {
         return retRotation;
     }

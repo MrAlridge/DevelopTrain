@@ -135,6 +135,7 @@ MonoBehaviour:
   thisCollider: {fileID: 1287077298652916028}
   rigid: {fileID: 1287077298652916031}
   abilitySystem: {fileID: 0}
+  swingForce: 100
   isHit: 0
-  flyingTime: 360
+  flyingTime: 5
   lockPosition: {x: 0, y: 0}

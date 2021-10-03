@@ -18,13 +18,16 @@ public class BasicPlayerBehaviour : MonoBehaviour
     private static bool isMoveable = true;             // 是否可动
     public float playerSpeed;                   // 初始移动速度
     public float playerJumpForce;               // 初始跳跃力度
+    public static float playerStaticJumpForce;
     public float playerJumpCount;              // 玩家已跳跃次数
-    private static Vector2 playerPostition;     // 玩家位置
+    public float swingForce;
+    private static Vector2 playerPositition;     // 玩家位置
+    private static Vector3 player3DPosition;    // 玩家三维坐标
     private static Vector2 mousePosition;       // 鼠标位置
     // -----Input Data-----
-    private float horizontalInputValue;         // 水平轴输入
-    private float verticalInputValue;           // 垂直轴输入
-    private bool jumpInputState;                // 跳跃键输入
+    public static float horizontalInputValue;         // 水平轴输入
+    public static float verticalInputValue;           // 垂直轴输入
+    public static bool jumpInputState;                // 跳跃键输入
     // -----Other Thing-----
     // Ray2D groundDetectRay = new Ray2D(new Vector2(0,0), new Vector2(0, -1));                      // 触地检测射线
     public LayerMask ground;
@@ -33,12 +36,12 @@ public class BasicPlayerBehaviour : MonoBehaviour
 
     void Start()
     {
-        
+        playerStaticJumpForce = playerJumpForce;
     }
 
     void Update()
     {
-        playerPostition = new Vector2(this.transform.position.x, this.transform.position.y);
+        playerPositition = new Vector2(this.transform.position.x, this.transform.position.y);
         GroundScan();
         SpeedLimit();
         UpdateRender();
@@ -57,7 +60,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
                 }
             }
         }
-        // Debug.Log(isMoveable.ToString());
+        
         
     }
 
@@ -150,6 +153,10 @@ public class BasicPlayerBehaviour : MonoBehaviour
     }
 
     // -----封装方法-----
+    public static float GetPlayerJumpForce()
+    {
+        return playerStaticJumpForce;
+    }
     public static void SetPlayerMove(bool input)
     {
         if(isMoveable != input)
@@ -160,11 +167,16 @@ public class BasicPlayerBehaviour : MonoBehaviour
 
     public static Vector2 GetPlayerPosition()
     {
-        return playerPostition;
+        return playerPositition;
     }
 
     public static Vector2 GetMousePosition()
     {
         return mousePosition;
+    }
+
+    public static Vector3 GetPlayer3DPosition()
+    {
+        return player3DPosition;
     }
 }

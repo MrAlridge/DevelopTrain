@@ -9,6 +9,7 @@ public class GrapleHead : MonoBehaviour
     public Collider2D thisCollider;
     public Rigidbody2D rigid;
     public GameObject abilitySystem;
+    public float swingForce;                                    // 荡绳的力度
     // -----State Area-----
     public bool isHit = false;                          // 是否抓到锚点
     public int flyingTime;                              // 抓钩的飞行时间
@@ -68,10 +69,16 @@ public class GrapleHead : MonoBehaviour
 
     public void Launch(float grapleForce, Vector2 targetPosition)                    // 发射抓钩
     {
-        this.transform.LookAt(Input.mousePosition);
+        this.transform.Rotate(new Vector3(0f, 0f,CursorHelper.GetRotation()));
         this.rigid.AddForce(CursorHelper.GetVector2() * grapleForce * 0.01f, ForceMode2D.Impulse);
         // this.rigid.velocity = new Vector2(grapleForce, 0f);
         StartCoroutine(SelfDestory());
+    }
+
+    public void Swing(float dir)
+    {
+        //先求垂直向量
+        playerJoint.gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(dir * swingForce, 0f));
     }
 
     void OnDestroy()
