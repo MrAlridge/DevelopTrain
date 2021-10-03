@@ -15,7 +15,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
     public SpriteRenderer playerRender;
     // -----State Data-----
     public bool isGround;                      // 是否着地
-    private bool isMoveable = true;             // 是否可动
+    private static bool isMoveable = true;             // 是否可动
     public float playerSpeed;                   // 初始移动速度
     public float playerJumpForce;               // 初始跳跃力度
     public float playerJumpCount;              // 玩家已跳跃次数
@@ -57,6 +57,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
                 }
             }
         }
+        // Debug.Log(isMoveable.ToString());
         
     }
 
@@ -149,6 +150,14 @@ public class BasicPlayerBehaviour : MonoBehaviour
     }
 
     // -----封装方法-----
+    public static void SetPlayerMove(bool input)
+    {
+        if(isMoveable != input)
+        {
+            isMoveable = input;
+        }
+    }
+
     public static Vector2 GetPlayerPosition()
     {
         return playerPostition;

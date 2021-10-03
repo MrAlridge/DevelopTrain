@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEditor;
 public class AbilityScript : MonoBehaviour
 {
+    // 这些是在编辑器中暴露的变量
     public Graple grapleAbility;
     public int abilityIndex;
     public GameObject playerReferObject;
@@ -17,7 +18,7 @@ public class AbilityScript : MonoBehaviour
     public static GameObject grapleObject;                  // 抓钩的头
     public static float grapleForce;                        // 抓钩发射力度
 
-    public abstract class BaseAbility
+    public abstract class BaseAbility                       // 能力由此类派生
     {
         public int index;           // 能力编号
         public abstract void ActiveAbility();
@@ -34,27 +35,22 @@ public class AbilityScript : MonoBehaviour
             if (!grapleOut)
             {
                 //Debug.Log("Parameters:" + thisInstance.grapleObject.name + ',' + thisInstance.playerObject.name + ',' + thisInstance.grapleForce.ToString());
-                currentGraple = Instantiate(grapleObject, playerObject.transform.position, CursorHelper.GetRotation());
+                currentGraple = Instantiate(grapleObject, playerObject.transform.position, new Quaternion(0f, 0f, 0f, 0f));
                 // currentGraple.transform.LookAt(CursorHelper.GetVector3());
                 // 万恶之源应该就是这个施加力的语句了，这个GetVector2返回的向量绝壁有问题
-                currentGraple.GetComponent<Rigidbody2D>().AddForce(grapleForce * CursorHelper.GetVector2());    // 这个力度是不是有点大
-                Destroy(currentGraple, 4f);
+                //currentGraple.GetComponent<Rigidbody2D>().AddForce(grapleForce * CursorHelper.GetVector2());    // 这个力度是不是有点大
+                currentGraple.GetComponent<GrapleHead>().Launch(grapleForce, new Vector2(Input.mousePosition.x, Input.mousePosition.y));
                 grapleOut = true;
             }else{
                 Debug.Log("NOT NULL!");
             }
+            Debug.Log(CursorHelper.GetVector2().ToString());
         }
 
         public void ResetGraple()
         {
             grapleOut = false;
-            Debug.Log("Yes!");
         }
-    }
-
-    public AbilityScript()
-    {
-        
     }
 
     void Start()

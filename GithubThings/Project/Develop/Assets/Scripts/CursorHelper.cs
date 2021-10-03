@@ -1,5 +1,6 @@
 ﻿/*
 * 由于我实在不会算四元数，就直接用这个来LookAt鼠标，返回他的四元数就行了
+* Update: 我是傻逼
 */
 using System.Collections;
 using System.Collections.Generic;

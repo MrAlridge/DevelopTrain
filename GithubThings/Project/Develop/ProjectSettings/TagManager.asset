@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Tile
   - AbilitySystem
+  - GraplePoint
   layers:
   - Default
   - TransparentFX
@@ -16,9 +17,9 @@ TagManager:
   - 
   - 
   - Tile
-  - GraplePoint
+  - Graple
   - PickUp
-  - 
+  - Player
   - 
   - 
   - 
