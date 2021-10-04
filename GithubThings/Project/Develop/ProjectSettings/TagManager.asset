@@ -9,6 +9,7 @@ TagManager:
   - GraplePoint
   - Spike
   - SavePoint
+  - EmptyTile
   layers:
   - Default
   - TransparentFX

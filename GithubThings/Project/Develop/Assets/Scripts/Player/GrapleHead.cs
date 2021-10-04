@@ -56,11 +56,12 @@ public class GrapleHead : MonoBehaviour
         if(coll.tag == "GraplePoint")
         {
             isHit = true;
-            lockPosition = new Vector2(coll.transform.position.x, coll.transform.position.y);
+            lockPosition = new Vector2(coll.GetComponentInChildren<Transform>().position.x, coll.GetComponentInChildren<Transform>().position.y);
             if(!playerJoint.enabled)
             {
                 playerJoint.enabled = true;
             }
+            rigid.bodyType = RigidbodyType2D.Kinematic;
             playerJoint.connectedBody = rigid;              // 绑定到抓钩
             playerJoint.distance = AbilityScript.grapleDistance;        //限定距离
             BasicPlayerBehaviour.SetPlayerMove(false);

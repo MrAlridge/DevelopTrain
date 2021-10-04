@@ -69,7 +69,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
             {
                 playerRigidbody.velocity = new Vector2(playerRigidbody.velocity.x + horizontalInputValue * playerSpeed, playerRigidbody.velocity.y);
             }
-            if(isGround || playerJumpCount < 2)
+            if(isGround || playerJumpCount < 1)
             {
                 if(jumpInputState)
                 {
@@ -110,7 +110,7 @@ public class BasicPlayerBehaviour : MonoBehaviour
                 playerRender.flipX = false;
             }
         }else{
-            if(playerRigidbody.velocity.x < 0.25)
+            if(playerRigidbody.velocity.x < -0.25)
             {
                 if(playerRender.flipX != true)
                 {

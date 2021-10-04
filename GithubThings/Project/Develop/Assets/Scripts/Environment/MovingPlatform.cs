@@ -37,4 +37,5 @@ public class MovingPlatform : MonoBehaviour
             destPosition = destnations[index].position;
         }
     }
+
 }

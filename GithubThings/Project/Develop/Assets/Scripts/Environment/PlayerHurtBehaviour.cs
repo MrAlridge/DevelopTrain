@@ -8,6 +8,7 @@ public class PlayerHurtBehaviour : StateMachineBehaviour
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        player = animator.gameObject;
         player.GetComponent<Rigidbody2D>().MovePosition(BasicPlayerBehaviour.lastSavePoint);
         BasicPlayerBehaviour.SetPlayerMove(true);
         animator.SetBool("HurtBool", false);

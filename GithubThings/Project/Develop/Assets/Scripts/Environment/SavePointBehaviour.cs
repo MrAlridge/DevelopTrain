@@ -16,14 +16,15 @@ public class SavePointBehaviour : MonoBehaviour
         thisSavePointPosition = new Vector2(transform.position.x, transform.position.y);
     }
 
-    void OnTriggerEnter2D(Collider2D coll)
+    void OnTriggerStay2D(Collider2D coll)
     {
-        if(coll.tag == "Player")
+        if(coll.tag == "Player" && Input.GetButtonDown("Interact"))
         {
             if(BasicPlayerBehaviour.GetPlayerSavePoint() != thisSavePointPosition)
             {
                 BasicPlayerBehaviour.SetPlayerSavePoint(thisSavePointPosition);
                 // 这里记得加点特效
+                
             }
         }
     }

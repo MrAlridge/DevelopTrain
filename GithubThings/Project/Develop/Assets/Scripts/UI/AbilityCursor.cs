@@ -21,12 +21,12 @@ public class AbilityCursor : MonoBehaviour
         {
             case 1:
             {
-                cursor.rectTransform.localPosition = new Vector3(-40f, 0f, 0f);
+                cursor.rectTransform.localPosition = new Vector3(-87f, 0f, 0f);
                 break;
             }
             case 2:
             {
-                cursor.rectTransform.localPosition = new Vector3(-20f, 0f, 0f);
+                cursor.rectTransform.localPosition = new Vector3(-46f, 0f, 0f);
                 break;
             }
             case 3:
@@ -36,12 +36,12 @@ public class AbilityCursor : MonoBehaviour
             }
             case 4:
             {
-                cursor.rectTransform.localPosition = new Vector3(20f, 0f, 0f);
+                cursor.rectTransform.localPosition = new Vector3(46f, 0f, 0f);
                 break;
             }
             case 5:
             {
-                cursor.rectTransform.localPosition = new Vector3(40f, 0f, 0f);
+                cursor.rectTransform.localPosition = new Vector3(87f, 0f, 0f);
                 break;
             }
             default:
